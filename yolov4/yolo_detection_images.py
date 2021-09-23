@@ -63,15 +63,13 @@ def yolov3_detection(image_path):
             (w, h) = (boxes[i][2], boxes[i][3])
 
             color = [int(c) for c in COLORS[classIDs[i]]]
-            cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
-            text = '{}: {:.4f}'.format(labels[classIDs[i]], confidences[i])
+            area = w * h # the area of the bounding box.
+            cv2.rectangle(image, (x, y), (x + w, y + h), color, 4)
+            text = '{}: {:.4f},bbox:{}'.format(labels[classIDs[i]], confidences[i],area)
             cv2.putText(image, text, (x, y - 5),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-            # print("{}: {}%".format(
-            #     labels[classIDs[i]], confidences[i]*100))
-            x_centroid = (x + (x + w))/2
+                        cv2.FONT_HERSHEY_SIMPLEX, 4, color, cv2.LINE_AA)
             detection_Objects.append(
-                [labels[classIDs[i]], x, y, w, h, x_centroid, confidences[i]*100])
+                [labels[classIDs[i]], w * h, confidences[i]*100])
 
     print(detection_Objects)
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
