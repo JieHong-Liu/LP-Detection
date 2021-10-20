@@ -72,10 +72,10 @@ def yolo_video(video_path):
             for i in detectionNMS.flatten():
                 (x, y) = (boxes[i][0], boxes[i][1])
                 (w, h) = (boxes[i][2], boxes[i][3])
-
+                area = w * h 
                 color = [int(c) for c in COLORS[classIDs[i]]]
                 cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-                text = '{}: {:.4f}'.format(labels[classIDs[i]], confidences[i])
+                text = '{}: {:.4f},bbox:{}'.format(labels[classIDs[i]], confidences[i],area)
                 cv2.putText(frame, text, (x, y - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
@@ -92,4 +92,4 @@ def yolo_video(video_path):
     video.release()
 
 
-yolo_video('videos/try.mp4')
+yolo_video('videos/IB-park.mov')
