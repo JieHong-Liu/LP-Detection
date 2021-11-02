@@ -7,7 +7,7 @@ def yolov3_detection(image_path):
     NMSThreshold = 0.3
     modelConfiguration = 'cfg/yolov4-LP_licence.cfg'
     # don't forget to change this weights!!!
-    modelWeights = 'weight/yolov4-LP_licence_best.weights'
+    modelWeights = 'weight/yolov4-LP_licence_final.weights'
     labelsPath = 'data/LP_licence.names'
     # modelConfiguration = 'cfg/yolov4-obj.cfg'
     # modelWeights = 'weight/yolov4-obj_11000.weights'
@@ -64,13 +64,13 @@ def yolov3_detection(image_path):
 
             color = [int(c) for c in COLORS[classIDs[i]]]
             area = w * h  # the area of the bounding box.
-            cv2.rectangle(image, (x, y), (x + w, y + h), color, 4)
+            cv2.rectangle(image, (x, y), (x + w, y + h), color, 1)
             text = '{}: {:.4f},bbox:{}'.format(
                 labels[classIDs[i]], confidences[i], area)
             cv2.putText(image, text, (x, y - 5),
-                        cv2.FONT_HERSHEY_SIMPLEX, 4, color, cv2.LINE_AA)
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
             detection_Objects.append(
-                [labels[classIDs[i]], w * h, confidences[i]*100])
+                [labels[classIDs[i]], w*h, w, h, confidences[i]*100])
 
     print(detection_Objects)
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
@@ -79,5 +79,11 @@ def yolov3_detection(image_path):
     cv2.waitKey(0)
     return 'ok from yolo_detection_image~'
 
+# for i in range(0,31):
+#     try:
+#         yolov3_detection('images/'+str(i)+'.jpg')
+#     except:
+#         pass
 
-yolov3_detection('images/7.026_2.jpg')
+
+yolov3_detection('images/15.jpg')
