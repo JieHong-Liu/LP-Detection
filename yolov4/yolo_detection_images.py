@@ -63,9 +63,10 @@ def yolov3_detection(image_path):
             (w, h) = (boxes[i][2], boxes[i][3])
 
             color = [int(c) for c in COLORS[classIDs[i]]]
-            area = w * h # the area of the bounding box.
+            area = w * h  # the area of the bounding box.
             cv2.rectangle(image, (x, y), (x + w, y + h), color, 4)
-            text = '{}: {:.4f},bbox:{}'.format(labels[classIDs[i]], confidences[i],area)
+            text = '{}: {:.4f},bbox:{}'.format(
+                labels[classIDs[i]], confidences[i], area)
             cv2.putText(image, text, (x, y - 5),
                         cv2.FONT_HERSHEY_SIMPLEX, 4, color, cv2.LINE_AA)
             detection_Objects.append(
@@ -79,4 +80,4 @@ def yolov3_detection(image_path):
     return 'ok from yolo_detection_image~'
 
 
-yolov3_detection('images/2.067_2.jpg')
+yolov3_detection('images/7.026_2.jpg')
