@@ -80,16 +80,15 @@ def yolo_video(video_path):
                     labels[classIDs[i]], confidences[i], area)
                 cv2.putText(frame, text, (x, y - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+        if writer is None:
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            writer = cv2.VideoWriter(
+                file_name+'-output.mp4', fourcc, 30, (frame.shape[1], frame.shape[0]), True)
 
-                if writer is None:
-                    fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-                    writer = cv2.VideoWriter(
-                        file_name+'-output.mp4', fourcc, 30, (frame.shape[1], frame.shape[0]), True)
-
-        if writer is not None:
-            writer.write(frame)
-            print("Writing frame", count+1)
-            count = count + 1
+# if writer is not None:
+        writer.write(frame)
+        print("Writing frame", count+1)
+        count = count + 1
 
         cv2.imshow('frame', frame)
         cv2.waitKey(1)
@@ -98,4 +97,4 @@ def yolo_video(video_path):
     video.release()
 
 
-yolo_video('videos/Car-Crash.mov')
+yolo_video('videos/ken.mp4')
