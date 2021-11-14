@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import time
 
 
 def yolo_video(video_path):
@@ -84,13 +85,17 @@ def yolo_video(video_path):
                     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
                     writer = cv2.VideoWriter(
                         file_name+'-output.mp4', fourcc, 30, (frame.shape[1], frame.shape[0]), True)
+
         if writer is not None:
             writer.write(frame)
             print("Writing frame", count+1)
             count = count + 1
 
+        cv2.imshow('frame', frame)
+        cv2.waitKey(1)
+
     writer.release()
     video.release()
 
 
-yolo_video('videos/IB-park.mov')
+yolo_video('videos/Car-Crash.mov')
