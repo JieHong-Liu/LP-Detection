@@ -31,7 +31,7 @@ def yolo_video(video_path):
         total = int(video.get(prop))
         print("[INFO] {} total frames in video".format(total))
     except:
-        printf("Could not determine no. of frames in video")
+        print("Could not determine no. of frames in video")
 
     count = 0
     while True:
@@ -72,10 +72,11 @@ def yolo_video(video_path):
             for i in detectionNMS.flatten():
                 (x, y) = (boxes[i][0], boxes[i][1])
                 (w, h) = (boxes[i][2], boxes[i][3])
-                area = w * h 
+                area = w * h
                 color = [int(c) for c in COLORS[classIDs[i]]]
                 cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-                text = '{}: {:.4f},bbox:{}'.format(labels[classIDs[i]], confidences[i],area)
+                text = '{}: {:.4f},bbox:{}'.format(
+                    labels[classIDs[i]], confidences[i], area)
                 cv2.putText(frame, text, (x, y - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
