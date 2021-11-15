@@ -3,11 +3,9 @@ import cv2
 
 confidenceThreshold = 0.5
 NMSThreshold = 0.3
-
-modelConfiguration = 'cfg/yolov3.cfg'
-modelWeights = 'yolov3.weights'
-
-labelsPath = 'coco.names'
+modelConfiguration = 'cfg/yolov4-LP_licence.cfg'
+modelWeights = 'weight/yolov4-LP_licence_best.weights'
+labelsPath = 'data/LP_licence.names'
 labels = open(labelsPath).read().strip().split('\n')
 
 np.random.seed(10)
@@ -60,11 +58,13 @@ while True:
 
             color = [int(c) for c in COLORS[classIDs[i]]]
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-            text = '{}: {:.4f}'.format(labels[classIDs[i]], confidences[i])
+            text = '{}: {:.4f}  ,bbox:{.4f}'.format(labels[classIDs[i]], confidences[i],w*h)
             cv2.putText(frame, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-
+            if(w*h > 500):
+                print("Fuck you all!!\n")
+            
     cv2.imshow('Output', frame)
-    if(cv.waitKey(1) & 0xFF == ord('q')):
+    if(cv2.waitKey(1) & 0xFF == ord('q')):
         break
 
 #Finally when video capture is over, release the video capture and destroyAllWindows

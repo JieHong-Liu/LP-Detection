@@ -85,7 +85,7 @@ def yolo_video(video_path):
             writer = cv2.VideoWriter(
                 file_name+'-output.mp4', fourcc, 30, (frame.shape[1], frame.shape[0]), True)
 
-# if writer is not None:
+    # if writer is not None:
         writer.write(frame)
         print("Writing frame", count+1)
         count = count + 1
@@ -97,4 +97,4 @@ def yolo_video(video_path):
     video.release()
 
 
-yolo_video('videos/ken.mp4')
+yolo_video('videos/Car-Crash.mov')
